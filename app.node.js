@@ -1136,7 +1136,7 @@ module.exports =
   	_createClass(Logo, [{
   		key: 'getLink',
   		value: function getLink() {
-  			return '/logos/' + this.props.img + '.png';
+  			return 'logos/' + this.props.img + '.png';
   		}
   	}, {
   		key: 'imageLoaded',
