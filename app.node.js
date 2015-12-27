@@ -918,7 +918,7 @@ module.exports =
   	}], [{
   		key: 'goTo',
   		value: function value(link) {
-  			_coreLocation2['default'].pushState(null, '/about');
+  			_coreLocation2['default'].pushState(null, 'about');
   		},
   		enumerable: true
   	}]);
