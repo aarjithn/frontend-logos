@@ -140,7 +140,7 @@ var Challenge = _react2.default.createClass({
     };
   },
   evaluate: function evaluate(request) {
-    var url = 'http://127.0.0.1:8080/evaluate';
+    var url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
 
     $.post(url, { qas: request }, (function (response) {
       this.setState({ score: response.length });
