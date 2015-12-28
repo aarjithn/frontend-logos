@@ -15,11 +15,7 @@ Categorizing:
 /*-------------------------------------------------
 MASTER: IMPORTING STYLESHEETS
 -------------------------------------------------*/
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body {
   margin: 0;
   padding: 0;
   border: 0;
@@ -27,22 +23,16 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   font: inherit;
   vertical-align: baseline; }
 
+a, a:visited, a:hover, a:active {
+  text-decoration: none;
+  color: inherit; }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
 
-body {
-  line-height: 1; }
-
 ol, ul {
   list-style: none; }
-
-blockquote, q {
-  quotes: none; }
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: '';
-  content: none; }
 
 table {
   border-collapse: collapse;
@@ -98,16 +88,72 @@ body {
   float: left; }
 
 .header {
-  overflow: hidden; }
-  .header::before {
-    content: ' ';
-    width: 100%;
-    height: 210px;
-    position: absolute;
-    top: 0;
-    background: #F77016 url('../images/logo.jpg') no-repeat center;
-    background-position-y: -150px;
-    will-change: transform; }
+  overflow: hidden;
+  width: 100%;
+  height: 210px;
+  position: absolute;
+  top: 0;
+  background: #39f;
+  background-position-y: -150px;
+  will-change: transform; }
+  .header h1 {
+    text-align: center;
+    font-size: 2em;
+    color: #fff;
+    margin-top: 40px; }
+
+.intro {
+  text-align: center;
+  font-size: 1em;
+  padding: 50px 0; }
+
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  width: 250px;
+  background: none;
+  cursor: pointer;
+  padding: 25px 80px;
+  display: inline-block;
+  margin: 15px auto;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  outline: none;
+  position: relative;
+  background: #cb4e4e;
+  color: #fff;
+  box-shadow: 0 6px #ab3c3c;
+  text-decoration: none;
+  border-radius: 5px; }
+
+.btn:hover {
+  box-shadow: 0 4px #ab3c3c;
+  top: 2px; }
+
+.btn:active {
+  box-shadow: 0 0 #ab3c3c;
+  top: 6px; }
+
+input[type='text'] {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 1.2em;
+  display: block;
+  height: auto;
+  margin: 0px auto;
+  outline: 0;
+  padding: 15px;
+  width: 350px;
+  background-color: #e8eeef;
+  color: #333;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px; }
+
+.logo img {
+  width: 250px;
+  height: auto; }
 
 .mtop50 {
   margin-top: -50px; }
@@ -170,12 +216,8 @@ body {
 .content-container {
   min-height: 135px;
   padding-top: 10px;
-  margin-bottom: 10px; }
-  .content-container .title {
-    margin-right: 10px;
-    text-decoration: none; }
-    .content-container .title:hover {
-      text-decoration: underline; }
+  margin-bottom: 10px;
+  text-align: center; }
   .content-container .about-content {
     width: 85%;
     margin: 20px auto 0 45px;
@@ -197,45 +239,10 @@ body {
       padding-top: 30px; }
     .content-container .heading:last-child {
       margin-bottom: 20px; }
-  .content-container a {
-    text-decoration: none;
-    font-size: 16px;
-    margin-top: 13px;
-    display: inline-block;
-    color: #4F8EFA;
-    text-decoration: underline;
-    line-height: 20px; }
-    .content-container a:hover {
-      color: #3f71c5; }
-    .content-container a:visited {
-      color: #1A3158; }
   .content-container .spinner {
     display: block;
     margin: 0 auto;
     margin-top: 100px; }
-  .content-container .author {
-    color: #FF6600;
-    font-size: 13px;
-    text-indent: 5px;
-    text-decoration: none; }
-    .content-container .author:hover {
-      text-decoration: underline; }
-    .content-container .author:visited, .content-container .author:hover {
-      color: #FF6600; }
-  .content-container .search-web, .content-container .domain a, .content-container .domain span {
-    text-decoration: none;
-    color: #4d5763;
-    font-size: 13px;
-    margin: 0; }
-  .content-container .search-web span:hover {
-    text-decoration: underline; }
-  .content-container .type {
-    color: #A0522D;
-    margin-top: 10px;
-    display: inline-block; }
-  .content-container .load-more {
-    position: relative;
-    top: -50px; }
 
 .profile-heading {
   width: 500px;
@@ -380,42 +387,6 @@ body {
   height: 30px;
   color: #4d5763;
   font-size: 13px; }
-
-.domain {
-  display: inline-block; }
-  .domain a:hover {
-    text-decoration: underline; }
-
-.goto-top {
-  position: fixed;
-  right: 100px;
-  text-decoration: underline;
-  bottom: 40px;
-  display: block;
-  cursor: pointer;
-  background: rgba(252, 103, 1, 0.91) url('../images/up_arrow.png') no-repeat;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.27);
-  background-position: 6px 5px; }
-
-.scroll-more {
-  border: 0;
-  display: block;
-  width: 105px;
-  height: 40px;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 5px;
-  text-align: center;
-  font-size: 18px;
-  background: rgba(158, 158, 158, 0.2);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  font-size: 16px;
-  margin-top: 40px;
-  cursor: pointer;
-  outline: 0; }
 
 /*-----------------------------------------------
 	MEDIA QUERY = 1360px to 1024px
