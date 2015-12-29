@@ -283,115 +283,17 @@ var NewContent = _react2.default.createClass({
   },
   getContentJson: function getContentJson(startIndex, pagination, isLoadingMore) {
 
-    var sourceUrl = 'https://hacker-news.firebaseio.com/v0/newstories.json';
+    var sourceUrl = 'images/logos/logos.json';
 
     $.get(sourceUrl, (function (response) {
 
-      if (response && response.length == 0) {
+      if (response) {
         this.hideLoader();
         return;
       }
-
-      for (var i = startIndex; i <= pagination; i++) {
-        if (i == pagination) {
-
-          if (this.isMounted()) this.hideLoader();
-
-          if (this.isMounted() && isLoadingMore) this.setState({ isLoadingMore: false });
-
-          return false;
-        }
-
-        this.getContentData(response[i], pagination);
-      }
-    }).bind(this));
-  },
-  getContentData: function getContentData(id) {
-
-    var contentUrl = 'https://hacker-news.firebaseio.com/v0/item/' + id + '.json';
-
-    $.get(contentUrl, (function (response) {
-
-      if (response.length == 0) {
-        if (this.isMounted()) {
-          this.hideLoader();
-        }
-        return;
-      }
-
-      var domain = response.url ? response.url.split(':')[1].split('//')[1].split('/')[0] : '';
-
-      response.domain = domain;
-
-      //this.setState({newStories : this.state.newStories.concat(response)});
     }).bind(this));
   },
   render: function render() {
-    var _this = this;
-
-    var newStories = this.state.newStories.map(function (response, index) {
-
-      var searchQuery = 'https://www.google.co.in/search?q=' + response.title;
-
-      return _react2.default.createElement(
-        'div',
-        { key: index },
-        _react2.default.createElement(
-          'div',
-          { className: 'content' },
-          _react2.default.createElement(
-            'a',
-            { className: 'title', target: '_blank', href: response.url },
-            response.title,
-            ' '
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: response.domain ? 'domain' : 'hide' },
-            ' (',
-            _react2.default.createElement(
-              'a',
-              { href: 'http://' + response.domain, title: 'Domain' },
-              response.domain
-            ),
-            ')'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'bottom-content' },
-            _react2.default.createElement(
-              'span',
-              null,
-              response.score,
-              ' ',
-              response.score > 1 ? ' points' : ' point',
-              ' '
-            ),
-            _react2.default.createElement(
-              'span',
-              null,
-              'by',
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { onClick: _this.changeMenu, className: 'author', to: '/user/' + response.by },
-                response.by
-              )
-            ),
-            _react2.default.createElement(
-              'a',
-              { href: searchQuery, target: '_blank', className: 'search-web' },
-              ' | ',
-              _react2.default.createElement(
-                'span',
-                null,
-                'web'
-              )
-            )
-          )
-        )
-      );
-    }, this);
-
     return _react2.default.createElement(
       'div',
       { className: 'content-container' },
