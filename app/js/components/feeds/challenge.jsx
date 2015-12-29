@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import Spinner from '../spinner.jsx';
 import Logo from './logo.jsx';
 
 const Challenge = React.createClass({
@@ -22,6 +23,7 @@ const Challenge = React.createClass({
       logos: logos,
       img: img,
       logoReady: false,
+      isLoading: true,
       answers: [],
       score: ''
     }
@@ -35,6 +37,39 @@ const Challenge = React.createClass({
     }.bind(this));
   },
 
+ showLoader() {
+    this.setState({
+      isLoading: true
+    });
+  },
+
+  hideLoader() {
+    this.setState({
+      isLoading: false
+    });
+  },
+
+  componentDidMount() {
+    this.getContentJson();
+  },
+
+  getContentJson() {
+
+    let sourceUrl = 'images/logos/logos.json';
+    
+    $.get(sourceUrl, function (response) {
+      
+      if (response ) {
+        var logos = response.logos;
+        var img = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
+        this.setState({logos, img});
+        this.hideLoader();
+        return;
+      }
+
+    }.bind(this));
+  },
+
   goTo(e) {
     var logos = this.state.logos;
     var nextLogo = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
@@ -42,7 +77,7 @@ const Challenge = React.createClass({
 
     var answers = this.state.answers.concat([{q:this.state.img, a:this.refs.inputVal.value}]);
     this.setState({answers: answers});
-    console.log(answers);
+
     if(this.state.logos.length === 0) {
       this.evaluate(answers);
     } else {
@@ -63,7 +98,11 @@ const Challenge = React.createClass({
   render() {
     return (
     	<div className="content-container">
-      	<div className={ this.state.score === '' ? 'content' : 'hide'}>
+        <div className={this.state.isLoading ? '': 'hide'}>
+          <Spinner />
+        </div>
+
+      	<div className={ this.state.score === '' || !this.state.isLoading ? 'content' : 'hide'}>
           <Logo img={this.state.img} onLoaded={this.logoLoaded}/>
           <form onSubmit={this.goTo}>
             <input type="text" ref="inputVal" autofocus/>
@@ -73,6 +112,7 @@ const Challenge = React.createClass({
           </button>
           </form>
 	     	</div>
+
         <div className={ this.state.score === '' ? 'hide' : 'content'}>
           <h2>Your score is {this.state.score}</h2>
         </div>
