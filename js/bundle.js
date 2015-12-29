@@ -114,6 +114,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _spinner = require('../spinner.jsx');
+
+var _spinner2 = _interopRequireDefault(_spinner);
+
 var _logo = require('./logo.jsx');
 
 var _logo2 = _interopRequireDefault(_logo);
@@ -135,6 +139,7 @@ var Challenge = _react2.default.createClass({
       logos: logos,
       img: img,
       logoReady: false,
+      isLoading: true,
       answers: [],
       score: ''
     };
@@ -146,6 +151,34 @@ var Challenge = _react2.default.createClass({
       this.setState({ score: response.length });
     }).bind(this));
   },
+  showLoader: function showLoader() {
+    this.setState({
+      isLoading: true
+    });
+  },
+  hideLoader: function hideLoader() {
+    this.setState({
+      isLoading: false
+    });
+  },
+  componentDidMount: function componentDidMount() {
+    this.getContentJson();
+  },
+  getContentJson: function getContentJson() {
+
+    var sourceUrl = 'images/logos/logos.json';
+
+    $.get(sourceUrl, (function (response) {
+
+      if (response) {
+        var logos = response.logos;
+        var img = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
+        this.setState({ logos: logos, img: img });
+        this.hideLoader();
+        return;
+      }
+    }).bind(this));
+  },
   goTo: function goTo(e) {
     var logos = this.state.logos;
     var nextLogo = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
@@ -153,7 +186,7 @@ var Challenge = _react2.default.createClass({
 
     var answers = this.state.answers.concat([{ q: this.state.img, a: this.refs.inputVal.value }]);
     this.setState({ answers: answers });
-    console.log(answers);
+
     if (this.state.logos.length === 0) {
       this.evaluate(answers);
     } else {
@@ -175,7 +208,12 @@ var Challenge = _react2.default.createClass({
       { className: 'content-container' },
       _react2.default.createElement(
         'div',
-        { className: this.state.score === '' ? 'content' : 'hide' },
+        { className: this.state.isLoading ? '' : 'hide' },
+        _react2.default.createElement(_spinner2.default, null)
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: this.state.score === '' || !this.state.isLoading ? 'content' : 'hide' },
         _react2.default.createElement(_logo2.default, { img: this.state.img, onLoaded: this.logoLoaded }),
         _react2.default.createElement(
           'form',
@@ -213,7 +251,7 @@ var Challenge = _react2.default.createClass({
 
 module.exports = Challenge;
 
-},{"./logo.jsx":4,"react":214}],4:[function(require,module,exports){
+},{"../spinner.jsx":6,"./logo.jsx":4,"react":214}],4:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -242,7 +280,6 @@ var Logo = _react2.default.createClass({
 module.exports = Logo;
 
 },{"react":214}],5:[function(require,module,exports){
-
 'use strict';
 
 var _react = require('react');
@@ -257,41 +294,12 @@ var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var pagination = 10;
-
 var NewContent = _react2.default.createClass({
   displayName: 'NewContent',
   getInitialState: function getInitialState() {
     return {
-      newStories: [],
-      isLoading: true,
-      isLoadingMore: false
-    };
-  },
-  showLoader: function showLoader() {
-    this.setState({
-      isLoading: true
-    });
-  },
-  hideLoader: function hideLoader() {
-    this.setState({
       isLoading: false
-    });
-  },
-  componentDidMount: function componentDidMount() {
-    this.getContentJson(0, pagination, false);
-  },
-  getContentJson: function getContentJson(startIndex, pagination, isLoadingMore) {
-
-    var sourceUrl = 'images/logos/logos.json';
-
-    $.get(sourceUrl, (function (response) {
-
-      if (response) {
-        this.hideLoader();
-        return;
-      }
-    }).bind(this));
+    };
   },
   render: function render() {
     return _react2.default.createElement(
@@ -331,12 +339,6 @@ var NewContent = _react2.default.createClass({
           { className: 'btn', to: '/challenge' },
           'Start'
         )
-      ),
-      this.props.children,
-      _react2.default.createElement(
-        'div',
-        { className: this.state.isLoadingMore ? 'mtop50' : 'hide' },
-        _react2.default.createElement(_spinner2.default, null)
       )
     );
   }
