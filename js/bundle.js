@@ -187,7 +187,7 @@ var Challenge = _react2.default.createClass({
     var answers = this.state.answers.concat([{ q: this.state.img, a: this.refs.inputVal.value }]);
     this.setState({ answers: answers });
 
-    if (this.state.logos.length === 0) {
+    if (this.state.logos.length < 20) {
       this.evaluate(answers);
     } else {
       this.setState({ img: nextLogo });
@@ -213,7 +213,7 @@ var Challenge = _react2.default.createClass({
       ),
       _react2.default.createElement(
         'div',
-        { className: this.state.score === '' || !this.state.isLoading ? 'content' : 'hide' },
+        { className: this.state.score === '' && !this.state.isLoading ? 'content' : 'hide' },
         _react2.default.createElement(_logo2.default, { img: this.state.img, onLoaded: this.logoLoaded }),
         _react2.default.createElement(
           'form',
