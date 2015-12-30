@@ -1,6 +1,6 @@
-# React hacker news
+# Front end logos challenge
 
-Hacker News site using React.js with minimalistic material design.
+A Quiz on front end logos using React.js
 
 *Framework and Libraries*
 
@@ -13,13 +13,16 @@ Hacker News site using React.js with minimalistic material design.
  - Gulp with babel transpiler to convert ES6 to ES5 Javascript
  - Browserify to use node module in the browser (check my gulpFile)
 
-### Work in progress (reply threads)
+## [Demo](http://aarjithn.github.io/fe-logos)
 
-## [Demo](http://gokulkrishh.github.io/demo/hacker-news/)
+*Roadmap Items*
 
-![React-hacker-news](https://github.com/gokulkrishh/React-hacker-news/raw/master/app/images/screenshot.png "React hacker news")
+ - Refactor code
+ - Better Styling
+ - Tests! Travis integration
+ - Make the Quiz module generic, to work with any q/a's
 
-## Installtion
+## Installation
 
 ```
  cd into <downloaded file path>
@@ -35,4 +38,8 @@ Hacker News site using React.js with minimalistic material design.
  gulp
 ```
 
+### Deployment to github pages
 
+```
+ gulp deploy
+```

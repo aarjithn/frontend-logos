@@ -16,7 +16,7 @@ let Header = React.createClass({
   render() {
     return (
       <div className="header">
-        <h1> {'<Front End Engineering Challenge/>'} </h1>
+        <h1> {'<Front End Logos/>'} </h1>
       </div>
     );
   }
@@ -27,7 +27,7 @@ let App = React.createClass({
     return (
       <div>
         <Header/>
-        <div className="container">
+        <div>
           {this.props.children}
         </div>
       </div>

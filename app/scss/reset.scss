@@ -9,11 +9,10 @@ html, body {
 
 a, a:visited, a:hover, a:active {
   text-decoration: none;
-  color: inherit;
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
