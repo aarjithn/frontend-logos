@@ -43,7 +43,7 @@ var Header = _react2.default.createClass({
         'h1',
         null,
         ' ',
-        '<Front End Engineering Challenge/>',
+        '<Front End Logos/>',
         ' '
       )
     );
@@ -59,7 +59,7 @@ var App = _react2.default.createClass({
       _react2.default.createElement(Header, null),
       _react2.default.createElement(
         'div',
-        { className: 'container' },
+        null,
         this.props.children
       )
     );
@@ -127,17 +127,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Challenge = _react2.default.createClass({
   displayName: 'Challenge',
   getInitialState: function getInitialState() {
-    var logos = ['0beee348c9090c80b0342ade91359470', '1ec9cb73f2aac4884b7014ca4a7d8789', '4acdf86ed4347bef17ba03414d54a686', '6d2d1edae5b66b6d6b515f2be931ca9c', '7a5fe2c75f77800ba51311697d98437e'
-    // '9c2d772904fb26402be611815485cd47',
-    // '38ebd8acddf11e20cbbb5061512eff22',
-    // '79b763147b998b1fa068eb90d862f81e',
-    // '80cb4fac9904dd67a2b91ba2ca60a02f',
-    // '89af6fd7ac67eafbfe1b01cd9669a6df'
-    ],
-        img = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
     return {
-      logos: logos,
-      img: img,
+      logos: [],
+      img: '',
       logoReady: false,
       isLoading: true,
       answers: [],
@@ -205,7 +197,7 @@ var Challenge = _react2.default.createClass({
   render: function render() {
     return _react2.default.createElement(
       'div',
-      { className: 'content-container' },
+      { className: 'container' },
       _react2.default.createElement(
         'div',
         { className: this.state.isLoading ? '' : 'hide' },
@@ -263,7 +255,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Logo = _react2.default.createClass({
   displayName: 'Logo',
   getLink: function getLink() {
-    return 'images/logos/' + this.props.img + '.png';
+    if (this.props.img) {
+      return 'images/logos/' + this.props.img + '.png';
+    } else return 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
   },
   imageLoaded: function imageLoaded() {
     this.props.onLoaded();
