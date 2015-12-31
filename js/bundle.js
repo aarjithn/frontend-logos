@@ -45,6 +45,24 @@ var Header = _react2.default.createClass({
         ' ',
         '<Front End Logos/>',
         ' '
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: 'https://twitter.com/share', className: 'twitter-share-button', 'data-hashtags': 'fe-logos' },
+        'Tweet'
+      ),
+      _react2.default.createElement(
+        'ul',
+        { className: 'border-color' },
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null),
+        _react2.default.createElement('li', null)
       )
     );
   }
@@ -311,11 +329,6 @@ var NewContent = _react2.default.createClass({
           'p',
           null,
           'Front end landscape is ever changing. '
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'Check your knowledge in tools. '
         ),
         _react2.default.createElement(
           'p',
