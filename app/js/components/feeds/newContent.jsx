@@ -18,10 +18,9 @@ const NewContent = React.createClass({
         <div className={this.state.isLoading ? '': 'hide'}>
           <Spinner />
         </div>
-        
+
         <div className= {this.state.isLoading ? 'content intro hide': 'content intro'}>
           <p>Front end landscape is ever changing. </p>
-          <p>Check your knowledge in tools. </p>
           <p>Enter the <em>npm package name</em> of the library/tool in the logo. </p>
           <Link className="btn" to={'/challenge'}>Start</Link>
         </div>
@@ -32,4 +31,3 @@ const NewContent = React.createClass({
 });
 
 module.exports = NewContent;
-

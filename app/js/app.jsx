@@ -17,6 +17,18 @@ let Header = React.createClass({
     return (
       <div className="header">
         <h1> {'<Front End Logos/>'} </h1>
+        <a href="https://twitter.com/share" className="twitter-share-button" data-hashtags="fe-logos">Tweet</a>
+        <ul className="border-color">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
     );
   }
