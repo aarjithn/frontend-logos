@@ -10,11 +10,11 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _newContent = require('./components/feeds/newContent.jsx');
+var _intro = require('./components/intro.jsx');
 
-var _newContent2 = _interopRequireDefault(_newContent);
+var _intro2 = _interopRequireDefault(_intro);
 
-var _challenge = require('./components/feeds/challenge.jsx');
+var _challenge = require('./components/challenge.jsx');
 
 var _challenge2 = _interopRequireDefault(_challenge);
 
@@ -44,6 +44,13 @@ var Header = _react2.default.createClass({
         null,
         ' ',
         '<Front End Logos/>',
+        ' '
+      ),
+      _react2.default.createElement(
+        'h2',
+        null,
+        ' ',
+        'How many can you identify?',
         ' '
       ),
       _react2.default.createElement(
@@ -84,10 +91,6 @@ var App = _react2.default.createClass({
   }
 });
 
-// let redirectToChild = (location, replaceState) => {
-//   replaceState(null, '/new');
-// }
-
 //Render the components
 _reactDom2.default.render(_react2.default.createElement(
   _reactRouter.Router,
@@ -95,44 +98,21 @@ _reactDom2.default.render(_react2.default.createElement(
   _react2.default.createElement(
     _reactRouter.Route,
     { path: '/', component: App },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _newContent2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'new', component: _newContent2.default }),
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _intro2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'intro', component: _intro2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: 'challenge', component: _challenge2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '*', component: _errorPage2.default })
   )
 ), target);
 
-},{"./components/errorPage.jsx":2,"./components/feeds/challenge.jsx":3,"./components/feeds/newContent.jsx":5,"history/lib/createBrowserHistory":13,"react":214,"react-dom":32,"react-router":52}],2:[function(require,module,exports){
-
+},{"./components/challenge.jsx":2,"./components/errorPage.jsx":3,"./components/intro.jsx":4,"history/lib/createBrowserHistory":13,"react":214,"react-dom":32,"react-router":52}],2:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PageNotFound = _react2.default.createClass({
-	displayName: 'PageNotFound',
-	render: function render() {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'page-not-found' },
-			'Page not found'
-		);
-	}
-});
-
-module.exports = PageNotFound;
-
-},{"react":214}],3:[function(require,module,exports){
-'use strict';
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _spinner = require('../spinner.jsx');
+var _spinner = require('./spinner.jsx');
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
@@ -147,8 +127,6 @@ var Challenge = _react2.default.createClass({
   getInitialState: function getInitialState() {
     return {
       logos: [],
-      img: '',
-      logoReady: false,
       isLoading: true,
       answers: [],
       score: ''
@@ -181,27 +159,45 @@ var Challenge = _react2.default.createClass({
     $.get(sourceUrl, (function (response) {
 
       if (response) {
-        var logos = response.logos;
-        var img = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
-        this.setState({ logos: logos, img: img });
+        var logos = this.shuffle(response.logos, 10);
+        this.setState({ logos: logos });
         this.hideLoader();
         return;
       }
     }).bind(this));
   },
+  shuffle: function shuffle(array) {
+    var len = arguments.length <= 1 || arguments[1] === undefined ? array.length : arguments[1];
+
+    var m = array.length,
+        t,
+        i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array.slice(0, len);
+  },
   goTo: function goTo(e) {
     var logos = this.state.logos;
-    var nextLogo = logos.splice(Math.floor(Math.random() * logos.length), 1)[0];
-    this.setState({ logos: logos });
 
-    var answers = this.state.answers.concat([{ q: this.state.img, a: this.refs.inputVal.value }]);
+    var answers = this.state.answers.concat([{ q: this.state.logos[0], a: this.refs.inputVal.value }]);
     this.setState({ answers: answers });
 
-    if (this.state.logos.length < 20) {
+    if (this.state.logos.length === 1) {
       this.evaluate(answers);
     } else {
-      this.setState({ img: nextLogo });
-      this.setState({ logoReady: false });
+      this.showLoader();
+      logos.shift();
+      this.setState({ logos: logos });
 
       this.refs.inputVal.value = "";
       this.refs.inputVal.focus();
@@ -209,39 +205,51 @@ var Challenge = _react2.default.createClass({
 
     e.preventDefault();
   },
-  logoLoaded: function logoLoaded() {
-    this.setState({ logoReady: true });
-  },
   render: function render() {
     return _react2.default.createElement(
       'div',
       { className: 'container' },
       _react2.default.createElement(
         'div',
-        { className: this.state.isLoading ? '' : 'hide' },
-        _react2.default.createElement(_spinner2.default, null)
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: this.state.score === '' && !this.state.isLoading ? 'content' : 'hide' },
-        _react2.default.createElement(_logo2.default, { img: this.state.img, onLoaded: this.logoLoaded }),
+        { className: this.state.score === '' ? 'content' : 'hide' },
+        _react2.default.createElement(
+          'div',
+          { className: this.state.isLoading ? 'logo' : 'hide' },
+          _react2.default.createElement(_spinner2.default, null)
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: this.state.isLoading ? 'hide' : '' },
+          _react2.default.createElement(_logo2.default, { img: this.state.logos[0], onLoaded: this.hideLoader })
+        ),
         _react2.default.createElement(
           'form',
           { onSubmit: this.goTo },
-          _react2.default.createElement('input', { type: 'text', ref: 'inputVal', autofocus: true }),
           _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'btn', disabled: !this.state.logoReady },
+            'div',
+            { className: 'controls' },
+            _react2.default.createElement('input', { type: 'text', ref: 'inputVal', placeholder: 'npm package name', autofocus: true }),
             _react2.default.createElement(
-              'span',
-              { className: !this.state.logoReady ? 'hide' : '' },
-              'Next'
+              'button',
+              { type: 'submit', className: 'next', disabled: this.state.isLoading },
+              ' > '
             ),
+            _react2.default.createElement('div', { className: 'progress', style: { width: 100 - this.state.logos.length * 10 + "%" } }),
             _react2.default.createElement(
               'span',
-              { className: this.state.logoReady ? 'hide' : '' },
-              'Loading'
-            )
+              { className: 'number' },
+              _react2.default.createElement(
+                'span',
+                { className: 'number-current' },
+                10 - this.state.logos.length + 1
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'number-total' },
+                ' / 10'
+              )
+            ),
+            _react2.default.createElement('span', { className: 'error-message' })
           )
         )
       ),
@@ -261,7 +269,8 @@ var Challenge = _react2.default.createClass({
 
 module.exports = Challenge;
 
-},{"../spinner.jsx":6,"./logo.jsx":4,"react":214}],4:[function(require,module,exports){
+},{"./logo.jsx":5,"./spinner.jsx":6,"react":214}],3:[function(require,module,exports){
+
 'use strict';
 
 var _react = require('react');
@@ -270,35 +279,27 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Logo = _react2.default.createClass({
-  displayName: 'Logo',
-  getLink: function getLink() {
-    if (this.props.img) {
-      return 'images/logos/' + this.props.img + '.png';
-    } else return 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
-  },
-  imageLoaded: function imageLoaded() {
-    this.props.onLoaded();
-  },
-  render: function render() {
-    return _react2.default.createElement(
-      'div',
-      { className: 'logo' },
-      _react2.default.createElement('img', { src: this.getLink(), onLoad: this.imageLoaded })
-    );
-  }
+var PageNotFound = _react2.default.createClass({
+	displayName: 'PageNotFound',
+	render: function render() {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'page-not-found' },
+			'Page not found'
+		);
+	}
 });
 
-module.exports = Logo;
+module.exports = PageNotFound;
 
-},{"react":214}],5:[function(require,module,exports){
+},{"react":214}],4:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _spinner = require('../spinner.jsx');
+var _spinner = require('./spinner.jsx');
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
@@ -306,8 +307,8 @@ var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var NewContent = _react2.default.createClass({
-  displayName: 'NewContent',
+var Intro = _react2.default.createClass({
+  displayName: 'Intro',
   getInitialState: function getInitialState() {
     return {
       isLoading: false
@@ -351,9 +352,41 @@ var NewContent = _react2.default.createClass({
   }
 });
 
-module.exports = NewContent;
+module.exports = Intro;
 
-},{"../spinner.jsx":6,"react":214,"react-router":52}],6:[function(require,module,exports){
+},{"./spinner.jsx":6,"react":214,"react-router":52}],5:[function(require,module,exports){
+'use strict';
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Logo = _react2.default.createClass({
+  displayName: 'Logo',
+  getLink: function getLink() {
+    if (this.props.img) {
+      return 'images/logos/' + this.props.img + '.png';
+    } else {
+      return 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
+    }
+  },
+  imageLoaded: function imageLoaded() {
+    this.props.onLoaded();
+  },
+  render: function render() {
+    return _react2.default.createElement(
+      'div',
+      { className: 'logo' },
+      _react2.default.createElement('img', { src: this.getLink(), onLoad: this.imageLoaded })
+    );
+  }
+});
+
+module.exports = Logo;
+
+},{"react":214}],6:[function(require,module,exports){
 
 'use strict';
 
