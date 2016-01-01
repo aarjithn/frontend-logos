@@ -29,12 +29,17 @@ body {
 
 .header {
   	width: 100%;
+    text-align: center;
 
   h1 {
-    text-align: center;
     font-size: 2.5em;
     color: #222;
-    margin-top: 40px;
+    margin: 40px 0 20px;
+  }
+  h2 {
+    font-size: 1.2em;
+    color: #336;
+    //margin-top: 40px;
   }
 
   .border-color {
@@ -130,12 +135,29 @@ input[type='text'] {
   background-color: #e8eeef;
   color: #333;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-  margin-bottom: 30px;
+
+  &::-webkit-input-placeholder {
+     color: #ccc;
+     font-size: .8em;
+     line-height: 1.2em;
+  }
+
+  &::-moz-placeholder {
+     color: #ccc;
+     font-size: .8em;
+     line-height: 1.2em;
+  }
 }
 
-.logo img {
-    width: 250px;
-    height: auto;
+
+.logo {
+    height: 230px;
+
+    img {
+        width: 220px;
+        height: auto;
+        max-height: 220px;
+    }
 }
 
 .page-not-found {
@@ -151,7 +173,67 @@ input[type='text'] {
 }
 // Spinner SVG
 
+.controls {
+    position: relative;
+    width: 350px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+.next {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    padding: 0;
+    width: 2em;
+    height: 2em;
+    border: none;
+    background: none;
+    color: #3498db;
+    font-size: 1.75em;
+    font-weight: bold;
+    text-align: center;
+    transition: .5s all;
+}
+.next:hover {
+    color: #090;
+    right: -5px;
+}
+.next:active {
+    color: #040;
+    outline: none;
+    right: -10px;
+}
+
+.progress {
+	width: 0%;
+	height: 0.25em;
+	background: #3498db;
+	//background: rgba(0,0,0,0.3);
+	-webkit-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+}
+
+.progress::before {
+	position: absolute;
+	top: auto;
+	width: 100%;
+	height: inherit;
+	background: rgba(0,0,0,0.05);
+	content: '';
+}
+
+/* Number indicator */
+ .number {
+	float: right;
+	font-weight: 700;
+	font-size: 0.9em;
+    color: #3498db;
+    padding-top: 5px;
+}
+
 .spinner {
+    margin-top: 80px;
   -webkit-animation: rotator 1.4s linear infinite;
           animation: rotator 1.4s linear infinite;
 }

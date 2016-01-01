@@ -3,8 +3,8 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import NewContent from './components/feeds/newContent.jsx'
-import Challenge from './components/feeds/challenge.jsx'
+import Intro from './components/intro.jsx'
+import Challenge from './components/challenge.jsx'
 import PageNotFound from './components/errorPage.jsx'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { Router, Route, Link, IndexRoute, Redirect } from 'react-router'
@@ -17,6 +17,7 @@ let Header = React.createClass({
     return (
       <div className="header">
         <h1> {'<Front End Logos/>'} </h1>
+        <h2> {'How many can you identify?'} </h2>
         <a href="https://twitter.com/share" className="twitter-share-button" data-hashtags="fe-logos">Tweet</a>
         <ul className="border-color">
           <li></li>
@@ -47,16 +48,12 @@ let App = React.createClass({
   }
 });
 
-// let redirectToChild = (location, replaceState) => {
-//   replaceState(null, '/new');
-// }
-
 //Render the components
 ReactDOM.render(
   <Router>
     <Route path="/" component={App}>
-      <IndexRoute component={NewContent} />
-      <Route path="new" component={NewContent} />
+      <IndexRoute component={Intro} />
+      <Route path="intro" component={Intro} />
       <Route path="challenge" component={Challenge} />
       <Route path="*" component={PageNotFound}/>
     </Route>

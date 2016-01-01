@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react';
-import Spinner from '../spinner.jsx';
+import Spinner from './spinner.jsx';
 import { Link } from 'react-router'
 
-const NewContent = React.createClass({
+const Intro = React.createClass({
 
   getInitialState() {
     return {
@@ -30,4 +30,4 @@ const NewContent = React.createClass({
   }
 });
 
-module.exports = NewContent;
+module.exports = Intro;
