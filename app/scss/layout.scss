@@ -138,13 +138,15 @@ input[type='text'] {
 
   &::-webkit-input-placeholder {
      color: #ccc;
-     font-size: .8em;
+     font-weight: 300;
+     font-size: .9em;
      line-height: 1.2em;
   }
 
   &::-moz-placeholder {
      color: #ccc;
-     font-size: .8em;
+     font-weight: 300;
+     font-size: .9em;
      line-height: 1.2em;
   }
 }
@@ -223,14 +225,22 @@ input[type='text'] {
 	content: '';
 }
 
-/* Number indicator */
  .number {
 	float: right;
 	font-weight: 700;
 	font-size: 0.9em;
     color: #3498db;
-    padding-top: 5px;
+    padding-top: 10px;
 }
+
+.error-message {
+   float: left;
+   font-weight: 300;
+   font-size: 0.9em;
+   color: #3498db;
+   padding-top: 10px;
+}
+
 
 .spinner {
     margin-top: 80px;

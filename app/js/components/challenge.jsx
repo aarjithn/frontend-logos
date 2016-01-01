@@ -111,7 +111,7 @@ const Challenge = React.createClass({
                             <span className="number-current">{10 - this.state.logos.length + 1}</span>
                             <span className="number-total"> / 10</span>
                         </span>
-                        <span className="error-message"></span>
+                        <span className="error-message">hint: press enter to submit</span>
                     </div>
                 </form>
             </div>
