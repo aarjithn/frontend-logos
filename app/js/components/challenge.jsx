@@ -11,7 +11,8 @@ const Challenge = React.createClass({
       logos: [],
       isLoading: true,
       answers: [],
-      score: ''
+      score: '',
+      response: ''
     }
   },
 
@@ -19,7 +20,7 @@ const Challenge = React.createClass({
     let url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
 
     $.post(url, {qas: request}, function(response) {
-      this.setState({score: response.length})
+      this.setState({score: response.length, response: response.join(", ")})
     }.bind(this));
   },
 
@@ -46,7 +47,7 @@ const Challenge = React.createClass({
     $.get(sourceUrl, function (response) {
 
       if (response ) {
-        var logos = this.shuffle(response.logos, 10);
+        var logos = this.shuffle(response.logos, 15);
         this.setState({logos});
         this.hideLoader();
         return;
@@ -92,6 +93,12 @@ const Challenge = React.createClass({
     e.preventDefault();
   },
 
+  retry() {
+      this.replaceState(this.getInitialState());
+      this.getContentJson();
+      this.refs.inputVal.value = "";
+  },
+
   render() {
     return (
     	<div className="container">
@@ -106,10 +113,10 @@ const Challenge = React.createClass({
                     <div className="controls">
                         <input type="text" ref="inputVal" placeholder="npm package name" autofocus/>
                         <button type="submit" className="next" disabled={this.state.isLoading}> > </button>
-                        <div className="progress" style={{width: (100 - this.state.logos.length * 10) + "%"}}></div>
+                        <div className="progress" style={{width: (100 - (this.state.logos.length * 100 / 15)) + "%"}}></div>
                         <span className="number">
-                            <span className="number-current">{10 - this.state.logos.length + 1}</span>
-                            <span className="number-total"> / 10</span>
+                            <span className="number-current">{15 - this.state.logos.length + 1}</span>
+                            <span className="number-total"> / 15</span>
                         </span>
                         <span className="error-message">hint: press enter to submit</span>
                     </div>
@@ -117,8 +124,17 @@ const Challenge = React.createClass({
             </div>
 
             <div className={ this.state.score === '' ? 'hide' : 'content'}>
-              <h2>Your score is {this.state.score}</h2>
+              <div className="score">
+                <h3 className="score-header">You Scored</h3>
+                <h3><span className="score-perc">{Math.floor(this.state.score * 100 / 15)}</span><span className="score-sign">%</span></h3>
+                <div className={ this.state.score == 0 ? 'hide' : ''}>
+                    <p><i>You got these right:</i></p>
+                    <p className="score-result">{this.state.response}</p>
+                </div>
+                <button className="btn" onClick={this.retry}>Retry</button>
+              </div>
             </div>
+
       </div>
     );
   }

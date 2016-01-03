@@ -6,8 +6,15 @@
 }
 
 body {
-	background: #fff;
-	font-family: 'Open Sans', 'Arial', sans-serif;
+    background: #fff;
+	font-family: 'Lato', 'Arial', sans-serif;
+}
+footer {
+    margin: 80px 0 10px;
+    font-size: 1em;
+    font-weight: lighter;
+    text-align: center;
+    color: #aaa;
 }
 
 .disable-hover,
@@ -30,15 +37,17 @@ body {
 .header {
   	width: 100%;
     text-align: center;
+    font-family: monospace;
 
   h1 {
-    font-size: 2.5em;
+    font-size: 2em;
     color: #222;
-    margin: 40px 0 20px;
+    margin: 40px 0 -5px;
   }
   h2 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: #336;
+    font-weight: lighter;
     //margin-top: 40px;
   }
 
@@ -82,8 +91,18 @@ body {
 
 .intro {
  text-align: center;
- font-size: 1em;
+ font-size: 1.1em;
+ font-weight: lighter;
+ margin-top: 30px;
  padding: 50px 0;
+ background: #222 url('../images/backdrop.jpg') no-repeat ;
+ background-size: cover;
+ color: white;
+
+ p {
+  max-width: 800px;
+  margin: 10px auto;
+ }
 }
 
 .container {
@@ -91,7 +110,7 @@ body {
 }
 
 .btn {
-  border: none;
+    border: none;
     font-family: inherit;
     font-size: inherit;
     width: 200px;
@@ -105,20 +124,20 @@ body {
     font-weight: 700;
     outline: none;
     position: relative;
-    background: #cb4e4e;
+    background: #3498db;
     color: #fff;
-    box-shadow: 0 6px #ab3c3c;
+    box-shadow: 0 6px #2184ca;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .btn:hover {
-  box-shadow: 0 4px #ab3c3c;
+  box-shadow: 0 4px #2184ca;
   top: 2px;
 }
 
 .btn:active {
-  box-shadow: 0 0 #ab3c3c;
+  box-shadow: 0 0 #2184ca;
   top: 6px;
 }
 
@@ -135,6 +154,7 @@ input[type='text'] {
   background-color: #e8eeef;
   color: #333;
   box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  font-family: 'Lato', 'Arial', sans-serif;
 
   &::-webkit-input-placeholder {
      color: #ccc;
@@ -154,6 +174,7 @@ input[type='text'] {
 
 .logo {
     height: 230px;
+    margin: 30px;
 
     img {
         width: 220px;
@@ -177,8 +198,8 @@ input[type='text'] {
 
 .controls {
     position: relative;
-    width: 350px;
-    margin: 10px auto;
+    width: 300px;
+    margin: 20px auto;
     overflow: hidden;
 }
 .next {
@@ -211,7 +232,6 @@ input[type='text'] {
 	width: 0%;
 	height: 0.25em;
 	background: #3498db;
-	//background: rgba(0,0,0,0.3);
 	-webkit-transition: width 0.4s ease-in-out;
 	transition: width 0.4s ease-in-out;
 }
@@ -241,6 +261,34 @@ input[type='text'] {
    padding-top: 10px;
 }
 
+// Results page
+
+.score {
+    padding: 10px 0;
+    border: 2px solid #3498db;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.score-header {
+    margin-bottom: -25px;
+}
+
+.score-perc {
+    font-size: 5em;
+    color: #3498db;
+    vertical-align: middle;
+}
+
+.score-sign {
+    font-weight: lighter;
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
+.score-result {
+    font-family: monospace;
+}
 
 .spinner {
     margin-top: 80px;
