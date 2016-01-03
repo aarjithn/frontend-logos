@@ -43,7 +43,7 @@ var Header = _react2.default.createClass({
         'h1',
         null,
         ' ',
-        '<Front End Logos/>',
+        '<front end logos/>',
         ' '
       ),
       _react2.default.createElement(
@@ -96,7 +96,7 @@ var App = _react2.default.createClass({
           { href: 'http://aarjithn.github.io' },
           'aarjithn'
         ),
-        ' in an X\'mas week off'
+        ' on a ❄ winter break'
       )
     );
   }
@@ -146,9 +146,10 @@ var Challenge = _react2.default.createClass({
   },
   evaluate: function evaluate(request) {
     var url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
-
+    this.showLoader();
     $.post(url, { qas: request }, (function (response) {
       this.setState({ score: response.length, response: response.join(", ") });
+      this.hideLoader();
     }).bind(this));
   },
   showLoader: function showLoader() {
@@ -201,7 +202,7 @@ var Challenge = _react2.default.createClass({
   goTo: function goTo(e) {
     var logos = this.state.logos;
 
-    var answers = this.state.answers.concat([{ q: this.state.logos[0], a: this.refs.inputVal.value }]);
+    var answers = this.state.answers.concat([{ q: this.state.logos[0], a: this.refs.inputVal.value.toLowerCase() }]);
     this.setState({ answers: answers });
 
     if (this.state.logos.length === 1) {
