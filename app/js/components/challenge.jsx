@@ -18,9 +18,10 @@ const Challenge = React.createClass({
 
   evaluate(request) {
     let url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
-
+    this.showLoader();
     $.post(url, {qas: request}, function(response) {
-      this.setState({score: response.length, response: response.join(", ")})
+      this.setState({score: response.length, response: response.join(", ")});
+      this.hideLoader();
     }.bind(this));
   },
 
@@ -76,7 +77,7 @@ const Challenge = React.createClass({
   goTo(e) {
     var logos = this.state.logos;
 
-    var answers = this.state.answers.concat([{q:this.state.logos[0], a:this.refs.inputVal.value}]);
+    var answers = this.state.answers.concat([{q:this.state.logos[0], a:this.refs.inputVal.value.toLowerCase()}]);
     this.setState({answers: answers});
 
     if(this.state.logos.length === 1) {
