@@ -11,9 +11,7 @@ A Quiz on front end logos using React.js
 *Build tools*
 
  - Gulp with babel transpiler to convert ES6 to ES5 Javascript
- - Browserify to use node module in the browser (check my gulpFile)
-
-## [Demo](http://aarjithn.github.io/fe-logos)
+ - Browserify to use node module in the browser
 
 *Roadmap Items*
 
@@ -26,9 +24,6 @@ A Quiz on front end logos using React.js
 
 ```
  cd into <downloaded file path>
-```
-
-```
  npm install
 ```
 
