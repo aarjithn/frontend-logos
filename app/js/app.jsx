@@ -43,7 +43,7 @@ let App = React.createClass({
         <div>
           {this.props.children}
         </div>
-        <footer>Made by <a href="http://aarjithn.github.io">aarjithn</a> in an X'mas week off</footer>
+        <footer>Made by <a href="http://aarjithn.github.io">aarjithn</a> on a ❄ winter break</footer>
       </div>
     )
   }
