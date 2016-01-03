@@ -86,6 +86,17 @@ var App = _react2.default.createClass({
         'div',
         null,
         this.props.children
+      ),
+      _react2.default.createElement(
+        'footer',
+        null,
+        'Made by ',
+        _react2.default.createElement(
+          'a',
+          { href: 'http://aarjithn.github.io' },
+          'aarjithn'
+        ),
+        ' in an X\'mas week off'
       )
     );
   }
@@ -129,14 +140,15 @@ var Challenge = _react2.default.createClass({
       logos: [],
       isLoading: true,
       answers: [],
-      score: ''
+      score: '',
+      response: ''
     };
   },
   evaluate: function evaluate(request) {
     var url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
 
     $.post(url, { qas: request }, (function (response) {
-      this.setState({ score: response.length });
+      this.setState({ score: response.length, response: response.join(", ") });
     }).bind(this));
   },
   showLoader: function showLoader() {
@@ -159,7 +171,7 @@ var Challenge = _react2.default.createClass({
     $.get(sourceUrl, (function (response) {
 
       if (response) {
-        var logos = this.shuffle(response.logos, 10);
+        var logos = this.shuffle(response.logos, 15);
         this.setState({ logos: logos });
         this.hideLoader();
         return;
@@ -205,6 +217,11 @@ var Challenge = _react2.default.createClass({
 
     e.preventDefault();
   },
+  retry: function retry() {
+    this.replaceState(this.getInitialState());
+    this.getContentJson();
+    this.refs.inputVal.value = "";
+  },
   render: function render() {
     return _react2.default.createElement(
       'div',
@@ -234,22 +251,26 @@ var Challenge = _react2.default.createClass({
               { type: 'submit', className: 'next', disabled: this.state.isLoading },
               ' > '
             ),
-            _react2.default.createElement('div', { className: 'progress', style: { width: 100 - this.state.logos.length * 10 + "%" } }),
+            _react2.default.createElement('div', { className: 'progress', style: { width: 100 - this.state.logos.length * 100 / 15 + "%" } }),
             _react2.default.createElement(
               'span',
               { className: 'number' },
               _react2.default.createElement(
                 'span',
                 { className: 'number-current' },
-                10 - this.state.logos.length + 1
+                15 - this.state.logos.length + 1
               ),
               _react2.default.createElement(
                 'span',
                 { className: 'number-total' },
-                ' / 10'
+                ' / 15'
               )
             ),
-            _react2.default.createElement('span', { className: 'error-message' })
+            _react2.default.createElement(
+              'span',
+              { className: 'error-message' },
+              'hint: press enter to submit'
+            )
           )
         )
       ),
@@ -257,10 +278,50 @@ var Challenge = _react2.default.createClass({
         'div',
         { className: this.state.score === '' ? 'hide' : 'content' },
         _react2.default.createElement(
-          'h2',
-          null,
-          'Your score is ',
-          this.state.score
+          'div',
+          { className: 'score' },
+          _react2.default.createElement(
+            'h3',
+            { className: 'score-header' },
+            'You Scored'
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'score-perc' },
+              Math.floor(this.state.score * 100 / 15)
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'score-sign' },
+              '%'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: this.state.score == 0 ? 'hide' : '' },
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'i',
+                null,
+                'You got these right:'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              { className: 'score-result' },
+              this.state.response
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            { className: 'btn', onClick: this.retry },
+            'Retry'
+          )
         )
       )
     );
@@ -329,18 +390,40 @@ var Intro = _react2.default.createClass({
         _react2.default.createElement(
           'p',
           null,
-          'Front end landscape is ever changing. '
+          'Front end landscape is ever changing. It could be pretty hard to keep up with the latest and greatest. '
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Take the quiz to check how many you can identify. '
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'p',
+          null,
+          '---------------',
+          _react2.default.createElement(
+            'b',
+            null,
+            'How to'
+          ),
+          '---------------'
         ),
         _react2.default.createElement(
           'p',
           null,
           'Enter the ',
           _react2.default.createElement(
-            'em',
+            'b',
             null,
             'npm package name'
           ),
           ' of the library/tool in the logo. '
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'Leave blank if unknown. '
         ),
         _react2.default.createElement(
           _reactRouter.Link,
