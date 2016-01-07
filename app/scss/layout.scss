@@ -9,17 +9,13 @@ body {
     background: #fff;
 	font-family: 'Lato', 'Arial', sans-serif;
 }
+
 footer {
     margin: 80px 0 10px;
     font-size: 1em;
     font-weight: lighter;
     text-align: center;
     color: #aaa;
-}
-
-.disable-hover,
-.disable-hover * {
-  pointer-events: none !important;
 }
 
 .hide {
@@ -44,6 +40,7 @@ footer {
     color: #222;
     margin: 40px 0 -5px;
   }
+
   h2 {
     font-size: 1.1em;
     color: #336;
@@ -90,19 +87,19 @@ footer {
 }
 
 .intro {
- text-align: center;
- font-size: 1.1em;
- font-weight: lighter;
- margin-top: 30px;
- padding: 50px 0;
- background: #222 url('../images/backdrop.jpg') no-repeat ;
- background-size: cover;
- color: white;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: lighter;
+    margin-top: 30px;
+    padding: 50px 0;
+    background: #222 url('../images/backdrop.jpg') no-repeat ;
+    background-size: cover;
+    color: white;
 
- p {
-  max-width: 800px;
-  margin: 10px auto;
- }
+    p {
+        max-width: 800px;
+        margin: 10px auto;
+    }
 }
 
 .container {
@@ -402,7 +399,5 @@ input[type='text'] {
 ------------------------------------------------*/
 
 @media (max-width: 1360px) and (min-width: 1024px) {
-  .bottom-content {
-		width: 960px;
-	}
+
 }
