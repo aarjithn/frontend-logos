@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom'
 import Intro from './components/intro.jsx'
 import Challenge from './components/challenge.jsx'
 import PageNotFound from './components/errorPage.jsx'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { Router, Route, Link, IndexRoute, Redirect } from 'react-router'
 
 //Target element to render the components
