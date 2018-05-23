@@ -17,7 +17,7 @@ const Challenge = React.createClass({
   },
 
   evaluate(request) {
-    let url = 'https://feechallenge-aarjithn.rhcloud.com/evaluate';
+    let url = 'https://frontend-logos.herokuapp.com/evaluate';
     this.showLoader();
     $.post(url, {qas: request}, function(response) {
       this.setState({score: response.length, response: response.join(", ")});
@@ -119,7 +119,7 @@ const Challenge = React.createClass({
                             <span className="number-current">{15 - this.state.logos.length + 1}</span>
                             <span className="number-total"> / 15</span>
                         </span>
-                        <span className="error-message">hint: press enter to submit</span>
+                        <span className="error-message">hint: {this.state.logos.length % 2 ===0 ? 'press enter to submit': 'submit blank for next'}</span>
                     </div>
                 </form>
             </div>
