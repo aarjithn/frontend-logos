@@ -81,9 +81,6 @@ footer {
   text-align: center;
   color: #aaa; }
 
-.disable-hover, .disable-hover * {
-  pointer-events: none !important; }
-
 .hide {
   display: none !important; }
 
@@ -394,6 +391,3 @@ input[type='text'] {
 	MEDIA QUERY = 1360px to 1024px
 	GRID = 960px
 ------------------------------------------------*/
-@media (max-width: 1360px) and (min-width: 1024px) {
-  .bottom-content {
-    width: 960px; } }
