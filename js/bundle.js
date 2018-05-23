@@ -143,10 +143,16 @@ var Challenge = _react2.default.createClass({
   evaluate: function evaluate(request) {
     var url = 'https://frontend-logos.herokuapp.com/evaluate';
     this.showLoader();
-    $.post(url, { qas: request }, function (response) {
-      this.setState({ score: response.length, response: response.join(", ") });
-      this.hideLoader();
-    }.bind(this));
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: JSON.stringify({ qas: request }),
+      contentType: "application/json; charset=utf-8",
+      success: function (response) {
+        this.setState({ score: response.length, response: response.join(", ") });
+        this.hideLoader();
+      }.bind(this)
+    });
   },
   showLoader: function showLoader() {
     this.setState({
